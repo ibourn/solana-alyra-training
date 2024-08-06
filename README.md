@@ -22,15 +22,16 @@ Presentation of various development tools. We started with front-end development
 ### Week 4: Rust Programming
 
 **_Exercise: rust-temperature-exercise_**  
-During this week, we focused on Rust programming by working through exercises from [Rustlings](https://github.com/rust-lang/rustlings). We concluded with a recap exercise to consolidate our understanding.
+During this week, we focused on Rust programming by working through exercises from [rustlings](https://github.com/rust-lang/rustlings). We concluded with a recap exercise to consolidate our understanding.
 
 ### Week 5 & 6: Programs, Playground, and Anchor
 
 **_Exercise: live-intro-playground_**  
 We explored the Solana Playground, where we initiated programs, performed deployments, and conducted testing. Various proposed exercises provided hands-on experience.
 
-**_Exercise: voting-app_**  
-We developed a more complex voting application using Anchor and Next.js. This project allowed us to deepen our understanding of Program Derived Addresses (PDAs).
+**_Exercise: voting-app_**
+**_Exercise (bonus): tic-tac-toe_**  
+We developed a more complex voting application using Anchor and Next.js. This project allowed us to deepen our understanding of Program Derived Addresses (PDAs). And we had a tic tac toe game as a bonus.
 
 **_Exercise: program-optimisation_**  
 We then focused on program optimization and advanced concepts such as Cross-Program Invocations (CPI), oracles, security..
