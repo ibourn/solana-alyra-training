@@ -1,4 +1,39 @@
-# Solana - Executive Overview
+# Solana Architecture Guide
+
+# Table of Contents
+
+- [Introduction](#introduction)
+  - [Key Metrics](#key-metrics)
+- [Key Concepts](#key-concepts)
+- [Transaction Lifecycle](#transaction-lifecycle)
+- [Users](#users)
+  - [User Journey](#user-journey)
+  - [Account Structure](#account-structure)
+  - [Transaction Signing](#transaction-signing)
+  - [Transaction Structure](#transaction-structure)
+  - [Costs and Fees](#costs-and-fees)
+  - [Failed Transactions](#failed-transactions)
+- [Gulf Stream](#gulf-stream)
+  - [RPCs and SW QoS](#rpc-and-sw-qos)
+  - [Clusters](#clusters)
+  - [QUIC Networking Protocol](#quic-networking-protocol)
+- [Block Building](#block-building)
+- [Clients](#clients)
+- [Proof of History (PoH)](#proof-of-history-poh)
+- [Accounts Model](#accounts-model)
+  - [Ownership and Program Derived Addresses (PDAs)](#ownership-and-program-derived-addresses-pdas)
+- [Turbine](#turbine)
+- [Consensus](#consensus)
+  - [Transaction Status](#transaction-status)
+- [Gossip & Archive](#gossip--archive)
+  - [Gossip Network](#gossip-network)
+  - [Archive Mechanism](#archive-mechanism)
+- [Economics & Jito](#economics--jito)
+  - [Staking Economics](#staking-economics)
+  - [Voting and Rewards](#voting-and-rewards)
+  - [Block Rewards](#block-rewards)
+  - [Liquid Staking](#liquid-staking)
+  - [Jito](#jito)
 
 ## Introduction
 
@@ -7,8 +42,7 @@ Solana is a high-performance, low-latency blockchain designed for speed, efficie
 ### Key Metrics
 
 - **RPCs:** 3,000+
-- **Validators:** 1,500+
-- **Global Base of Apps & Users**
+- **Validators:** 1,500+-
 
 ## Key Concepts
 
@@ -24,16 +58,7 @@ Understanding Solana primarily revolves around the lifecycle of a transaction:
 2. **Block Compilation:** The leader compiles transactions into a block, executing and updating the blockchain's state.
 3. **Propagation:** The block is propagated throughout the network for validation and confirmation by other validators.
 
-Changes to the Solana protocol undergo a transparent process via a **Solana Improvement Document (SIMD)**, which is publicly critiqued and voted on by the network.
-
-### Six Stages Framework
-
-The report references a six-stage framework to understand the relationships between Solana's core elements. While this framework is useful, it has limitations and does not fully encompass the complexity of Solana as a distributed system.
-
 ## Users
-
-> “Solana has the potential to be the Apple of crypto.”  
-> — Raj Gokal, Solana co-founder
 
 ### User Journey
 
@@ -74,12 +99,6 @@ The smallest unit of SOL is a **lamport**, equivalent to one billionth of a SOL.
 ### Failed Transactions
 
 The term "failed transaction" can be misleading, as these transactions incur fees but are executed as intended. Most failed transactions arise from exceeding slippage limits, mostly submitted by a small percentage of active addresses.
-
-## Conclusion
-
-Solana's architecture and transaction model prioritize speed, efficiency, and user experience, positioning it as a leading blockchain solution in the crypto space.
-
-# Solana - Executive Overview (Suite)
 
 ## Gulf Stream
 
@@ -169,6 +188,50 @@ In late 2022, Solana adopted the **QUIC** protocol for transaction message trans
 - **Confirmed:** Voted on by a two-thirds majority.
 - **Finalized:** More than 31 blocks built on top of the transaction's block.
 
-## Conclusion
+## Gossip & Archive
 
-Solana’s innovative architecture and transaction processing mechanisms position it as a leading blockchain protocol focused on speed, efficiency, and user experience.
+### Gossip Network
+
+- **Control Plane:** The gossip network serves as the control plane for the Solana network, disseminating critical metadata about the blockchain's state, including contact information and vote data.
+- **Communication:** Solana's gossip protocol employs informal, peer-to-peer communication using a tree broadcast method for efficient information propagation without a central source.
+- **Message Types:** There are four types of gossip messages:
+
+  - **Push:** Shares information with specific peers.
+  - **Pull & Pull Response:** Checks for missed messages and retrieves them.
+  - **Prune:** Reduces the number of connections a node maintains.
+  - **Ping & Pong:** Health checks to confirm node activity.
+
+- **Data Storage:** Gossip data is stored in a Cluster Replicated Data Store (CrdsTable), which needs periodic pruning due to its potential size.
+
+### Archive Mechanism
+
+- **State Management:** Solana does not require the entire historical ledger to determine the current state of an account, allowing validators to store only the current state without processing all past blocks.
+- **Warehouse Nodes:** These nodes manage archives and maintain:
+  - **Ledger Archive:** Raw ledger and AccountsDB snapshots for replay.
+  - **Google Bigtable:** Stores block data from the genesis block onwards.
+
+## Economics & Jito
+
+### Staking Economics
+
+- **Inflation:** Solana generates new SOL tokens each epoch to distribute staking rewards, starting at an initial rate of **8%**, decreasing by 15% annually to stabilize at **1.5%**. This leads to a wealth transfer from non-stakers to stakers.
+- **Delegation:** SOL token holders can delegate their tokens to validators, indicating trust without transferring ownership.
+
+### Voting and Rewards
+
+- **Voting Credits:** Validators earn credits for accurate votes, costing **0.000005 SOL** per vote, with voting expenses averaging **1 SOL per day**.
+- **Reward Distribution:** At the end of each epoch, total inflation rewards are allocated based on the credits earned, weighted by stake.
+
+### Block Rewards
+
+- Validators designated as leaders for blocks receive additional rewards, comprising **50%** of base fees and **50%** of priority fees from transactions in the block, while the remaining fees are burned.
+
+### Liquid Staking
+
+- **Liquid Staking Tokens (LST):** Users receive LSTs in return for staking SOL, allowing them to trade or use these tokens in the DeFi ecosystem while still earning staking rewards. Rewards are reinvested into the staking pool, increasing the value of LSTs.
+
+## Jito
+
+- **Jito Client:** Over **80%** of Solana's stake utilizes the Jito client, which introduces out-of-protocol blockspace auctions that provide economic incentives through tips.
+- **Transaction Handling:** Transactions are routed through the Jito-Relayer, which holds them for **200 milliseconds** before forwarding, allowing for auction opportunities.
+- **Blockspace Auctions:** These auctions occur off-chain, enabling searchers to submit transaction bundles, typically for time-sensitive operations. Jito charges a **5% fee** on tips.
