@@ -16,8 +16,8 @@ Introduction to the Solana Virtual Machine (SVM)
 
 ### Week 3: Development Tools and Building a DApp (Frontend)
 
-**_Exercise: react-jupyter-front_**  
-Presentation of various development tools. We started with front-end development using React to interact with a Solana program. Additionally, we performed a swap using Jupyter, both with and without Anchor, to understand its utility.
+**_Exercise: react-jupiter-front_**  
+Presentation of various development tools. We started with front-end development using React to interact with a Solana program. Additionally, we performed a swap using [Jupiter](https://jup.ag/), both with and without Anchor, to understand its utility.
 
 ### Week 4: Rust Programming
 
