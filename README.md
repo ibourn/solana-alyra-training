@@ -29,7 +29,7 @@ During this week, we focused on Rust programming by working through exercises fr
 **_Exercise: live-intro-playground_**  
 We explored the Solana Playground, where we initiated programs, performed deployments, and conducted testing. Various proposed exercises provided hands-on experience.
 
-**_Exercise: voting-app_**
+**_Exercise: voting-app_**  
 **_Exercise (bonus): tic-tac-toe_**  
 We developed a more complex voting application using Anchor and Next.js. This project allowed us to deepen our understanding of Program Derived Addresses (PDAs). And we had a tic tac toe game as a bonus.
 
