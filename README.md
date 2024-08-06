@@ -9,9 +9,9 @@ This repository contains course materials, specifically the exercises we complet
 
 ### Week 1 & 2: Introduction to Solana Ecosystem
 
-Overview of Solana's architecture
-Understanding consensus mechanisms
-Learning about validators and Proof of History (PoH)
+Overview of Solana's architecture  
+Understanding consensus mechanisms  
+Learning about validators and Proof of History (PoH)  
 Introduction to the Solana Virtual Machine (SVM)
 
 ### Week 3: Development Tools and Building a DApp (Frontend)
